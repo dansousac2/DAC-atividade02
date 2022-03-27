@@ -28,8 +28,8 @@ public class GuestService {
 		if(isOnDB(cpf)) {
 			Guest guestFinded = guestDAO.findByCpf(cpf).get();
 			guestFinded.setName(name);
-			guestFinded.setCpf(cpf);
 			guestFinded.setEvent(event);
+			save(guestFinded);
 		}
 	}
 	

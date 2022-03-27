@@ -34,14 +34,33 @@ public class GuestController {
 
 			switch (resp) {
 			case "1":
+				System.out.println("= = Cadastrar convidado = =");
+				
 				System.out.printf("Informe o nome do convidado: ");
 				String name = scan.nextLine();
+				
 				System.out.printf("Informe o CPF: ");
 				String cpf = scan.nextLine();
+				
 				System.out.printf("Informe o id do evento: ");
 				Integer id = Integer.parseInt(scan.nextLine());
 				
 				save(name, Long.parseLong(cpf), id);
+				break;
+				
+			case "2":
+				System.out.println("= = Atualizar convidado existente = =");
+				
+				System.out.printf("Informe o nome do convidado: ");
+				String name2 = scan.nextLine();
+				
+				System.out.printf("Informe o CPF: ");
+				String cpf2 = scan.nextLine();
+				
+				System.out.printf("Informe o id do evento: ");
+				Integer id2 = Integer.parseInt(scan.nextLine());
+				
+				update(name2, Long.parseLong(cpf2), id2);
 				break;
 			}
 		}
@@ -57,6 +76,7 @@ public class GuestController {
 	public void update(String name, Long cpf, Integer eventId) {
 		if (validation.isValidCpf(cpf) && validation.isValidEvent(eventId)) {
 			Event event = guestService.getEvent(eventId);
+			//informa se o CPF não for encontrado
 			guestService.update(name, cpf, event);
 		}
 	}
