@@ -78,6 +78,9 @@ public class EventController {
 				System.out.println("\n= = Listagem de eventos = =\n");
 				listAll();
 				break;
+				
+			case "0":
+				break;
 			}
 			
 		}
