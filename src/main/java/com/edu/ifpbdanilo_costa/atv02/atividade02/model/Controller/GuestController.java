@@ -74,8 +74,7 @@ public class GuestController {
 			
 			case "4":
 				System.out.println("\n= = Listar convidados = =");
-				
-				
+				listAll();
 				break;
 				
 			case "0":
