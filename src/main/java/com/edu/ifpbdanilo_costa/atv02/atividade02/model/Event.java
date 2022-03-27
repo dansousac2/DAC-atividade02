@@ -32,7 +32,8 @@ public class Event implements Serializable {
 	@Column(nullable = false)
 	private String adress;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "ID_event")
 	private List<Guest> listGuest;
 	
