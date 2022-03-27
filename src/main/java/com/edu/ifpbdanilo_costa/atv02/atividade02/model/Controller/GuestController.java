@@ -34,7 +34,7 @@ public class GuestController {
 
 			switch (resp) {
 			case "1":
-				System.out.println("= = Cadastrar convidado = =");
+				System.out.println("\n= = Cadastrar convidado = =");
 				
 				System.out.printf("Informe o nome do convidado: ");
 				String name = scan.nextLine();
@@ -49,7 +49,7 @@ public class GuestController {
 				break;
 				
 			case "2":
-				System.out.println("= = Atualizar convidado existente = =");
+				System.out.println("\n= = Atualizar convidado existente = =");
 				
 				System.out.printf("Informe o nome do convidado: ");
 				String name2 = scan.nextLine();
@@ -64,12 +64,22 @@ public class GuestController {
 				break;
 			
 			case "3":
-				System.out.println("= = Deletar convidado existente = =");
+				System.out.println("\n= = Deletar convidado existente = =");
 				
 				System.out.printf("Informe o CPF: ");
 				String cpf3 = scan.nextLine();
 				
 				delete(Long.parseLong(cpf3));
+				break;
+			
+			case "4":
+				System.out.println("\n= = Listar convidados = =");
+				
+				
+				break;
+				
+			case "0":
+				resp = "0";
 				break;
 			}
 		}
