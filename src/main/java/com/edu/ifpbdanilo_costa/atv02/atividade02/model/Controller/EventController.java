@@ -80,6 +80,7 @@ public class EventController {
 				break;
 				
 			case "0":
+				resp = "0";
 				break;
 			}
 			

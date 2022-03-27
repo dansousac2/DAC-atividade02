@@ -62,6 +62,15 @@ public class GuestController {
 				
 				update(name2, Long.parseLong(cpf2), id2);
 				break;
+			
+			case "3":
+				System.out.println("= = Deletar convidado existente = =");
+				
+				System.out.printf("Informe o CPF: ");
+				String cpf3 = scan.nextLine();
+				
+				delete(Long.parseLong(cpf3));
+				break;
 			}
 		}
 	}

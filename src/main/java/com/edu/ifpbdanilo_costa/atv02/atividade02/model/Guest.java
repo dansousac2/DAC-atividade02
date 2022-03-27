@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,8 +22,8 @@ public class Guest implements Serializable {
 	@Column(nullable = false)
 	private Long cpf;
 	
-	@ManyToOne
-	@JoinColumn(name = "ID_event", nullable = true)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_event")
 	private Event event;
 	
 	public Guest() {
