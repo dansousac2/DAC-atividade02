@@ -16,7 +16,10 @@ public class EventService {
 	private EventDAO eventDAO;
 	
 	public void save(Event event) {
-		eventDAO.save(event);
+		if(!isOnDB(event.getId())) {
+			eventDAO.save(event);
+			System.out.println("Salvo com sucesso!");
+		}
 	}
 	
 	public void update(Integer id, String name, String date, String adress) {

@@ -20,7 +20,12 @@ public class GuestService {
 	private EventDAO eventDAO;
 	
 	public void save(Guest guest) {
-		guestDAO.save(guest);
+		if(!isOnDB(guest.getCpf())) {
+			guestDAO.save(guest);
+			System.out.println("Salvo com sucesso!");
+		} else {
+			System.out.println("Já existe um convidado com o CPF informado no banco de dados!");
+		}
 	}
 	
 	public void update(String name, Long cpf, Event event) {
