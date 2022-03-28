@@ -11,20 +11,17 @@ import com.edu.ifpbdanilo_costa.atv02.atividade02.model.DAO.EventDAO;
 
 @Service
 public class EventService {
-	
+
 	@Autowired
 	private EventDAO eventDAO;
-	
+
 	public void save(Event event) {
-		if(!isOnDB(event.getId())) {
-			eventDAO.save(event);
-			System.out.println("Salvo com sucesso!");
-		}
+		eventDAO.save(event);
 	}
-	
+
 	public void update(Integer id, String name, String date, String adress) {
-		
-		if(isOnDB(id)) {
+
+		if (isOnDB(id)) {
 			Event eventFinded = eventDAO.findById(id).get();
 			eventFinded.setAdress(adress);
 			eventFinded.setDate(date);
@@ -32,10 +29,10 @@ public class EventService {
 			save(eventFinded);
 		}
 	}
-	
+
 	public void delete(Integer id) {
 
-		if(isOnDB(id)) {
+		if (isOnDB(id)) {
 			Event evetFinded = eventDAO.findById(id).get();
 			eventDAO.delete(evetFinded);
 		}
@@ -45,11 +42,11 @@ public class EventService {
 		List<Event> lista = (List<Event>) eventDAO.findAll();
 		lista.forEach(item -> System.out.println(item));
 	}
-	
+
 	private boolean isOnDB(Integer id) {
 		Optional<Event> opGuest = eventDAO.findById(id);
-		
-		if(opGuest.isPresent()) {
+
+		if (opGuest.isPresent()) {
 			return true;
 		} else {
 			System.out.println("Evento não encontrado no banco de dados!");
