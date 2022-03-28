@@ -34,7 +34,7 @@ public class GuestService {
 			Guest guestFinded = guestDAO.findByCpf(cpf).get();
 			guestFinded.setName(name);
 			guestFinded.setEvent(event);
-			save(guestFinded);
+			guestDAO.save(guestFinded);
 		}
 	}
 	
