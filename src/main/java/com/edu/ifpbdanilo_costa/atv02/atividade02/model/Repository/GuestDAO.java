@@ -1,4 +1,4 @@
-package com.edu.ifpbdanilo_costa.atv02.atividade02.model.DAO;
+package com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository;
 
 import java.util.Optional;
 

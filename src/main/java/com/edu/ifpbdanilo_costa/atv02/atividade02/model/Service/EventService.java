@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Event;
-import com.edu.ifpbdanilo_costa.atv02.atividade02.model.DAO.EventDAO;
+import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.EventDAO;
 
 @Service
 public class EventService {

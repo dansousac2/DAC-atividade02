@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Event;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Guest;
-import com.edu.ifpbdanilo_costa.atv02.atividade02.model.DAO.EventDAO;
-import com.edu.ifpbdanilo_costa.atv02.atividade02.model.DAO.GuestDAO;
+import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.EventDAO;
+import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.GuestDAO;
 
 @Service
 public class GuestService {
