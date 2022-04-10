@@ -17,11 +17,9 @@ public class Guest implements Serializable {
 
 	@Column(nullable = false)
 	private String name;
-	
 	@Id
 	@Column(nullable = false)
 	private Long cpf;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_event")
 	private Event event;

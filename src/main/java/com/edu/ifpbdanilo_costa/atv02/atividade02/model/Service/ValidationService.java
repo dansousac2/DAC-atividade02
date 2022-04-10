@@ -9,16 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Event;
-import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.EventDAO;
+import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.EventRepository;
 
 @Service
 public class ValidationService {
 	
 	@Autowired
-	private EventDAO eventDAO;
+	private EventRepository eventRepository;
 	
 	public boolean isValidEvent(Integer id) {
-		Optional<Event> op = eventDAO.findById(id);
+		Optional<Event> op = eventRepository.findById(id);
 		if(op.isPresent()) {
 			return true;
 		} else {
@@ -36,19 +36,18 @@ public class ValidationService {
 		}
 	}
 
-	public boolean validateDate(String date) {
+	public void validateDate(String date) {
 
 		try {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			LocalDate d = LocalDate.parse(date, formatter);
 			if(d.isBefore(LocalDate.now())) {
+				// lançar exceção
 				System.out.println("A data do evento não pode ser anterior ao dia atual!");
-				return false;
 			}
-			return true;
 		} catch (DateTimeParseException e) {
+			// criar nova exceção
 			System.out.println("Data informada inválida ou no formato errado (dd/mm/aaa)!");
-			return false;
 		}
 	}
 

@@ -8,20 +8,20 @@ import org.springframework.stereotype.Service;
 
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Event;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Guest;
-import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.EventDAO;
-import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.GuestDAO;
+import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.EventRepository;
+import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.GuestRepository;
 
 @Service
 public class GuestService {
 	
 	@Autowired
-	private GuestDAO guestDAO;
+	private GuestRepository guestRepository;
 	@Autowired
-	private EventDAO eventDAO;
+	private EventRepository eventRepository;
 	
 	public void save(Guest guest) {
 		if(!isOnDB(guest.getCpf())) {
-			guestDAO.save(guest);
+			guestRepository.save(guest);
 			System.out.println("Salvo com sucesso!");
 		} else {
 			System.out.println("Já existe um convidado com o CPF informado no banco de dados!");
@@ -31,28 +31,28 @@ public class GuestService {
 	public void update(String name, Long cpf, Event event) {
 		
 		if(isOnDB(cpf)) {
-			Guest guestFinded = guestDAO.findByCpf(cpf).get();
+			Guest guestFinded = guestRepository.findByCpf(cpf).get();
 			guestFinded.setName(name);
 			guestFinded.setEvent(event);
-			guestDAO.save(guestFinded);
+			guestRepository.save(guestFinded);
 		}
 	}
 	
 	public void delete(Long cpf) {
 
 		if(isOnDB(cpf)) {
-			Guest guestFinded = guestDAO.findByCpf(cpf).get();
-			guestDAO.delete(guestFinded);
+			Guest guestFinded = guestRepository.findByCpf(cpf).get();
+			guestRepository.delete(guestFinded);
 		}
 	}
 
 	public void showAll() {
-		List<Guest> lista = (List<Guest>) guestDAO.findAll();
+		List<Guest> lista = (List<Guest>) guestRepository.findAll();
 		lista.forEach(item -> System.out.println(item));
 	}
 	
 	private boolean isOnDB(Long cpf) {
-		Optional<Guest> opGuest = guestDAO.findByCpf(cpf);
+		Optional<Guest> opGuest = guestRepository.findByCpf(cpf);
 		
 		if(opGuest.isPresent()) {
 			return true;
@@ -63,6 +63,6 @@ public class GuestService {
 	}
 	
 	public Event getEvent(Integer id) {
-		return eventDAO.findById(id).get();
+		return eventRepository.findById(id).get();
 	}
 }

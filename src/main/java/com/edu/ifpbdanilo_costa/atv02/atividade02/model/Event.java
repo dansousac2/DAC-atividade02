@@ -1,6 +1,7 @@
 package com.edu.ifpbdanilo_costa.atv02.atividade02.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,28 +23,26 @@ public class Event implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
 	@Column(nullable = false)
 	private String eventName;
-	
 	@Column(nullable = false)
 	private String date;
-	
 	@Column(nullable = false)
 	private String adress;
-	
-	
+	private BigDecimal budget;
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "ID_event")
 	private List<Guest> listGuest;
 	
 	public Event() {
 	}
-	
-	public Event(String eventName, String date, String adress) {
-		this.eventName = eventName;
-		this.date = date;
-		this.adress = adress;
+
+	public BigDecimal getBudget() {
+		return budget;
+	}
+
+	public void setBudget(BigDecimal budget) {
+		this.budget = budget;
 	}
 
 	public String getEventName() {
