@@ -23,11 +23,8 @@ public class Event implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(nullable = false)
 	private String eventName;
-	@Column(nullable = false)
 	private String date;
-	@Column(nullable = false)
 	private String adress;
 	private BigDecimal budget;
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

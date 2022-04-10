@@ -57,13 +57,19 @@ public class ConverterService {
 	private List<GuestDto> guestToListDto(List<Guest> listGuest) {
 		if (!(listGuest == null)) {
 			List<GuestDto> dto = new ArrayList<>();
-			listGuest.forEach(e -> dto.add(guestToDto(e)));
+			listGuest.forEach(e -> dto.add(guestNamesOnly(e)));
 			return dto;
 		}
 		return new ArrayList<>();
 	}
 
-	public GuestDto guestToDto(Guest entity) { // not return the cpf's guest
+	private GuestDto guestNamesOnly(Guest entity) {
+		GuestDto dto = new GuestDto();
+		dto.setName(entity.getName());
+		return dto;
+	}
+
+	public GuestDto guestToDto(Guest entity) { // not return the cpf's guest and event's guest
 		GuestDto dto = new GuestDto();
 		dto.setName(entity.getName());
 		dto.setEvent(entity.getEvent());

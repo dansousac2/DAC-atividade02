@@ -1,11 +1,11 @@
 package com.edu.ifpbdanilo_costa.atv02.atividade02.exceptions;
 
-public class InvalidDateException extends Exception {
+public class CpfAlreadyExistsInDB extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
-	public InvalidDateException(String msg) {
-		super(msg);
+	public CpfAlreadyExistsInDB(String message) {
+		super(message);
 	}
-
+	
 }

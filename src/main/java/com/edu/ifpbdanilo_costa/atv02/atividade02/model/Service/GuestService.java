@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.edu.ifpbdanilo_costa.atv02.atividade02.exceptions.CpfAlreadyExistsInDB;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Event;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Guest;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.EventRepository;
@@ -19,13 +20,15 @@ public class GuestService {
 	@Autowired
 	private EventRepository eventRepository;
 	
-	public void save(Guest guest) {
+	public Guest save(Guest guest) throws CpfAlreadyExistsInDB {
 		if(!isOnDB(guest.getCpf())) {
-			guestRepository.save(guest);
-			System.out.println("Salvo com sucesso!");
-		} else {
-			System.out.println("Já existe um convidado com o CPF informado no banco de dados!");
+			Optional<Event> opc = eventRepository.findById(guest.getEvent().getId()); // the id's event already is checked by GuestController
+			Event event = opc.get();
+			guest.setEvent(event);
+			
+			return guestRepository.save(guest);
 		}
+		throw new CpfAlreadyExistsInDB("Already a Guest on data base whit CPF: " + guest.getCpf());
 	}
 	
 	public void update(String name, Long cpf, Event event) {
@@ -57,7 +60,6 @@ public class GuestService {
 		if(opGuest.isPresent()) {
 			return true;
 		} else {
-			System.out.println("Convidado não encontrado no banco de dados!");
 			return false;
 		}
 	}

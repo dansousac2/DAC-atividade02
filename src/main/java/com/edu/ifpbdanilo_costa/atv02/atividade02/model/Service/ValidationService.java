@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.edu.ifpbdanilo_costa.atv02.atividade02.exceptions.CpfFormatInvalidException;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.exceptions.IdNotFoundedInDBException;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.exceptions.InvalidDateException;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Event;
@@ -26,12 +27,9 @@ public class ValidationService {
 		}
 	}
 
-	public boolean isValidCpf(Long cpf) {
-		if (String.valueOf(cpf).length() == 11 && onlyNumbers(cpf)) {
-			return true;
-		} else {
-			System.out.println("CPF deve conter 11 dígitos, sendo estes apenas números!");
-			return false;
+	public void isValidCpf(Long cpf) throws CpfFormatInvalidException {
+		if (!(String.valueOf(cpf).length() == 11 && onlyNumbers(cpf))) {
+			throw new CpfFormatInvalidException("CPF is not in right pattern");
 		}
 	}
 
