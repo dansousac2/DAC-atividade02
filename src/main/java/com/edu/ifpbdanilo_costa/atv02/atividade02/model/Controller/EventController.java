@@ -84,6 +84,7 @@ public class EventController {
 			List<EventDto> dtoList = new ArrayList<>();
 
 			list.forEach(ev -> dtoList.add(converterService.eventToDto(ev)));
+			
 			return ResponseEntity.ok(dtoList);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

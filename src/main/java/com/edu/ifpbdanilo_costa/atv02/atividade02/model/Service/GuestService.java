@@ -51,9 +51,11 @@ public class GuestService {
 		}
 	}
 
-	public void showAll() {
-		List<Guest> lista = (List<Guest>) guestRepository.findAll();
-		lista.forEach(item -> System.out.println(item));
+	public List<Guest> showAll() {
+		List<Guest> list = (List<Guest>) guestRepository.findAll();
+		list.forEach(item -> System.out.println(item));
+		
+		return list;
 	}
 	
 	private boolean isOnDB(Long cpf) {
