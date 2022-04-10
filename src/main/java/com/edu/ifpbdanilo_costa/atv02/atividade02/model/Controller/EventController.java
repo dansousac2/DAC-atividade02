@@ -1,9 +1,13 @@
 package com.edu.ifpbdanilo_costa.atv02.atividade02.model.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -43,7 +47,7 @@ public class EventController {
 		}
 
 	}
-	
+
 	@PutMapping("/update/{id}")
 	public ResponseEntity update(@PathVariable Integer id, @RequestBody EventDto dto) {
 		try {
@@ -53,10 +57,10 @@ public class EventController {
 			event.setId(id);
 			event = eventService.update(event);
 			dto = converterService.eventToDto(event);
-			
+
 			return ResponseEntity.ok(dto);
 		} catch (Exception e) {
-			return  ResponseEntity.badRequest().body(e.getMessage());
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 
 	}
@@ -70,9 +74,19 @@ public class EventController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-//
-//	public void listAll() {
-//		eventService.showAll();
-//	}
+
+	@GetMapping("/listAll")
+	public ResponseEntity listAll() {
+		try {
+
+			List<Event> list = eventService.showAll();
+			List<EventDto> dtoList = new ArrayList<>();
+
+			list.forEach(ev -> dtoList.add(converterService.eventToDto(ev)));
+			return ResponseEntity.ok(dtoList);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 
 }

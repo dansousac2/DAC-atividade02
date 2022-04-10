@@ -42,9 +42,9 @@ public class EventService {
 		}
 	}
 
-	public void showAll() {
-		List<Event> lista = (List<Event>) eventRepository.findAll();
-		lista.forEach(item -> System.out.println(item));
+	public List<Event> showAll() {
+		List<Event> list = eventRepository.findAll();
+		return list;
 	}
 
 	private boolean isOnDB(Integer id) {
