@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.edu.ifpbdanilo_costa.atv02.atividade02.exceptions.InvalidDate;
+import com.edu.ifpbdanilo_costa.atv02.atividade02.exceptions.EventNotFoundedInDBException;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Event;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.EventRepository;
 
@@ -17,13 +19,10 @@ public class ValidationService {
 	@Autowired
 	private EventRepository eventRepository;
 	
-	public boolean isValidEvent(Integer id) {
+	public void isValidEvent(Integer id) throws EventNotFoundedInDBException {
 		Optional<Event> op = eventRepository.findById(id);
-		if(op.isPresent()) {
-			return true;
-		} else {
-			System.out.println("Id do evento não confere com banco de dados!");
-			return false;
+		if(!op.isPresent()) {
+			throw new EventNotFoundedInDBException("Not founded in the DB the Event with the ID: " + id);
 		}
 	}
 
@@ -36,18 +35,16 @@ public class ValidationService {
 		}
 	}
 
-	public void validateDate(String date) {
+	public void isValidDate(String date) throws InvalidDate {
 
 		try {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			LocalDate d = LocalDate.parse(date, formatter);
 			if(d.isBefore(LocalDate.now())) {
-				// lançar exceção
-				System.out.println("A data do evento não pode ser anterior ao dia atual!");
+				throw new InvalidDate("Is not possible create a Event to a past date [" + d + "]");
 			}
 		} catch (DateTimeParseException e) {
-			// criar nova exceção
-			System.out.println("Data informada inválida ou no formato errado (dd/mm/aaa)!");
+			throw new InvalidDate("Verify if the date format is on dd/MM/yyyy");
 		}
 	}
 

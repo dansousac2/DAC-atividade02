@@ -31,7 +31,7 @@ public class EventController {
 	@PostMapping("/save")
 	public ResponseEntity save(@RequestBody EventDto dto) {
 		try {
-			validation.validateDate(dto.getDate());
+			validation.isValidDate(dto.getDate());
 			Event event = converterService.dtoToEvent(dto); // whitout "id"
 			event = eventService.save(event); // whit "id"
 			dto = converterService.eventToDto(event);
@@ -46,7 +46,8 @@ public class EventController {
 	@PutMapping("/update/{id}")
 	public ResponseEntity update(@PathVariable Integer id, @RequestBody EventDto dto) {
 		try {
-			validation.validateDate(dto.getDate());
+			validation.isValidDate(dto.getDate());
+			validation.isValidEvent(id);
 			Event event = converterService.dtoToEvent(dto); // whitout id
 			event.setId(id);
 			event = eventService.update(event);
