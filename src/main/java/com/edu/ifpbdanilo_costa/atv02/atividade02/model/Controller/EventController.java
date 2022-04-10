@@ -3,9 +3,12 @@ package com.edu.ifpbdanilo_costa.atv02.atividade02.model.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Event;
@@ -25,28 +28,36 @@ public class EventController {
 	@Autowired
 	private ConverterService converterService;
 
-	@PostMapping
-	@RequestMapping("/save")
+	@PostMapping("/save")
 	public ResponseEntity save(@RequestBody EventDto dto) {
 		try {
 			validation.validateDate(dto.getDate());
 			Event event = converterService.dtoToEvent(dto); // whitout "id"
 			event = eventService.save(event); // whit "id"
 			dto = converterService.eventToDto(event);
-			
-			return new ResponseEntity(dto,HttpStatus.CREATED);
+
+			return new ResponseEntity(dto, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 
 	}
+	
+	@PutMapping("/update/{id}")
+	public ResponseEntity update(@PathVariable Integer id, @RequestBody EventDto dto) {
+		try {
+			validation.validateDate(dto.getDate());
+			Event event = converterService.dtoToEvent(dto); // whitout id
+			event.setId(id);
+			event = eventService.update(event);
+			dto = converterService.eventToDto(event);
+			
+			return ResponseEntity.ok(dto);
+		} catch (Exception e) {
+			return  ResponseEntity.badRequest().body(e.getMessage());
+		}
 
-//	public void update(Integer id, String name, String date, String adress) {
-//		if (validation.validateDate(date)) {
-//			// informa se o id não for encontrado
-//			eventService.update(id, name, date, adress);
-//		}
-//	}
+	}
 //
 //	public void delete(Integer id) {
 //		// informa se o id não for encontrado

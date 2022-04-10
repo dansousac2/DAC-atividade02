@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.edu.ifpbdanilo_costa.atv02.atividade02.exceptions.IdNotFoundedInDB;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Event;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.EventRepository;
 
@@ -16,19 +17,19 @@ public class EventService {
 	private EventRepository eventRepository;
 
 	public Event save(Event event) {
-		System.out.println(event.getBudget());
 		return eventRepository.save(event);
 	}
 
-	public void update(Integer id, String name, String date, String adress) {
+	public Event update(Event event) throws IdNotFoundedInDB {
 
-		if (isOnDB(id)) {
-			Event eventFinded = eventRepository.findById(id).get();
-			eventFinded.setAdress(adress);
-			eventFinded.setDate(date);
-			eventFinded.setEventName(name);
-			save(eventFinded);
+		if (isOnDB(event.getId())) {
+			Event eventFinded = eventRepository.findById(event.getId()).get();
+			eventFinded.setAdress(event.getAdress());
+			eventFinded.setDate(event.getDate());
+			eventFinded.setEventName(event.getEventName());
+			return save(eventFinded);
 		}
+		throw new IdNotFoundedInDB("Do not found the event: " + event);
 	}
 
 	public void delete(Integer id) {
