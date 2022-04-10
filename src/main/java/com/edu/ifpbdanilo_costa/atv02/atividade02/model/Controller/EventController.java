@@ -3,6 +3,7 @@ package com.edu.ifpbdanilo_costa.atv02.atividade02.model.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -59,11 +60,16 @@ public class EventController {
 		}
 
 	}
-//
-//	public void delete(Integer id) {
-//		// informa se o id não for encontrado
-//		eventService.delete(id);
-//	}
+
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity delete(@PathVariable Integer id) {
+		try {
+			eventService.delete(id);
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 //
 //	public void listAll() {
 //		eventService.showAll();

@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.edu.ifpbdanilo_costa.atv02.atividade02.exceptions.IdNotFoundedInDB;
+import com.edu.ifpbdanilo_costa.atv02.atividade02.exceptions.IdNotFoundedInDBException;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Event;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.EventRepository;
 
@@ -20,7 +20,7 @@ public class EventService {
 		return eventRepository.save(event);
 	}
 
-	public Event update(Event event) throws IdNotFoundedInDB {
+	public Event update(Event event) throws IdNotFoundedInDBException {
 
 		if (isOnDB(event.getId())) {
 			Event eventFinded = eventRepository.findById(event.getId()).get();
@@ -29,14 +29,16 @@ public class EventService {
 			eventFinded.setEventName(event.getEventName());
 			return save(eventFinded);
 		}
-		throw new IdNotFoundedInDB("Do not found the event: " + event);
+		throw new IdNotFoundedInDBException("Not founded the id's event: " + event.getId());
 	}
 
-	public void delete(Integer id) {
+	public void delete(Integer id) throws IdNotFoundedInDBException {
 
 		if (isOnDB(id)) {
 			Event evetFinded = eventRepository.findById(id).get();
 			eventRepository.delete(evetFinded);
+		} else {
+			throw new IdNotFoundedInDBException("Not founded the id's event: " + id);
 		}
 	}
 
@@ -51,7 +53,6 @@ public class EventService {
 		if (opGuest.isPresent()) {
 			return true;
 		} else {
-			System.out.println("Evento não encontrado no banco de dados!");
 			return false;
 		}
 	}
