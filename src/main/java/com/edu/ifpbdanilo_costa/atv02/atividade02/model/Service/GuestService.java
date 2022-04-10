@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edu.ifpbdanilo_costa.atv02.atividade02.exceptions.CpfAlreadyExistsInDB;
+import com.edu.ifpbdanilo_costa.atv02.atividade02.exceptions.CpfNotFaundedInDBException;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Event;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Guest;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Repository.EventRepository;
@@ -31,14 +32,15 @@ public class GuestService {
 		throw new CpfAlreadyExistsInDB("Already a Guest on data base whit CPF: " + guest.getCpf());
 	}
 	
-	public void update(String name, Long cpf, Event event) {
+	public Guest update(Guest guest) throws CpfNotFaundedInDBException {
 		
-		if(isOnDB(cpf)) {
-			Guest guestFinded = guestRepository.findByCpf(cpf).get();
-			guestFinded.setName(name);
-			guestFinded.setEvent(event);
-			guestRepository.save(guestFinded);
+		if(isOnDB(guest.getCpf())) {
+			Guest guestFinded = guestRepository.findByCpf(guest.getCpf()).get();
+			guestFinded.setName(guest.getName());
+			guestFinded.setEvent(guest.getEvent());
+			return guestRepository.save(guestFinded);
 		}
+		throw new CpfNotFaundedInDBException("CPF not founded to: " + guest.getCpf());
 	}
 	
 	public void delete(Long cpf) {

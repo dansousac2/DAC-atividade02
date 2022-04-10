@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,13 +46,25 @@ public class GuestController {
 		
 	}
 
-//	public void update(String name, Long cpf, Integer eventId) {
-//		if (validation.isValidCpf(cpf) && validation.isValidEvent(eventId)) {
-//			Event event = guestService.getEvent(eventId);
-//			//informa se o CPF não for encontrado
-//			guestService.update(name, cpf, event);
-//		}
-//	}
+	@PutMapping("/update")
+	public ResponseEntity update(@RequestBody GuestDto dto) { // The Event's Guest have only the "id" in this point
+		try {
+			validation.isValidCpf(dto.getCpf());
+			validation.isValidEvent(dto.getEvent().getId());
+			
+			Guest guest = converterService.dtoToGuest(dto);
+			Event event = guestService.getEvent(dto.getEvent().getId());
+			guest.setEvent(event);			// the Event's Guest have full association with the Event in the DB
+			
+			guest = guestService.update(guest);
+			dto = converterService.guestToDto(guest);
+			
+			return ResponseEntity.ok(dto);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(null);
+		}
+
+	}
 //
 //	public void delete(Long cpf) {
 //		if (validation.isValidCpf(cpf)) {

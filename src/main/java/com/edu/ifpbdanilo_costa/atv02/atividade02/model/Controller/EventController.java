@@ -55,6 +55,7 @@ public class EventController {
 			validation.isValidEvent(id);
 			Event event = converterService.dtoToEvent(dto); // whitout id
 			event.setId(id);
+			
 			event = eventService.update(event);
 			dto = converterService.eventToDto(event);
 
