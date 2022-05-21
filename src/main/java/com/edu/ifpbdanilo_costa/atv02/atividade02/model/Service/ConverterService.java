@@ -49,6 +49,7 @@ public class ConverterService {
 		dto.setEventName(entity.getEventName());
 		dto.setDate(entity.getDate());
 		dto.setAdress(entity.getAdress());
+		dto.setBudget(entity.getBudget());
 		dto.setListGuest(guestToListDto(entity.getListGuest()));
 
 		return dto;
@@ -66,6 +67,15 @@ public class ConverterService {
 	public GuestDto guestToDto(Guest entity) {
 		GuestDto dto = new GuestDto();
 		dto.setName(entity.getName());
+		
+		Event ev = new Event();
+		ev.setId(entity.getEvent().getId());
+		ev.setEventName(entity.getEvent().getEventName());
+		ev.setAdress(entity.getEvent().getAdress());
+		ev.setDate(entity.getEvent().getDate());
+		
+		dto.setEvent(ev);
+		
 		return dto;
 	}
 

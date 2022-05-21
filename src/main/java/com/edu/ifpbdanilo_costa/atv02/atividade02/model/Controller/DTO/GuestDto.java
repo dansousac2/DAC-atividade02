@@ -1,19 +1,12 @@
 package com.edu.ifpbdanilo_costa.atv02.atividade02.model.Controller.DTO;
 
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Event;
-import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Guest;
 
 public class GuestDto {
 	
 	private Long cpf;
 	private String name;
 	private Event event;
-	
-	public GuestDto(Guest guest) {
-		this.cpf = guest.getCpf();
-		this.name = guest.getName();
-		this.event = guest.getEvent();
-	}
 	
 	public GuestDto() {
 	}

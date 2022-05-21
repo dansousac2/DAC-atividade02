@@ -6,11 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +20,6 @@ import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Controller.DTO.GuestDto;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Service.ConverterService;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Service.GuestService;
 import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Service.ValidationService;
-
-import ch.qos.logback.core.pattern.Converter;
 
 @RestController
 @RequestMapping("/api/guest")
@@ -69,7 +64,7 @@ public class GuestController {
 
 			return ResponseEntity.ok(dto);
 		} catch (Exception e) {
-			return ResponseEntity.badRequest().body(null);
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 
 	}

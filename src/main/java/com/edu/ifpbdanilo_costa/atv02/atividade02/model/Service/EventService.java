@@ -27,6 +27,7 @@ public class EventService {
 			eventFinded.setAdress(event.getAdress());
 			eventFinded.setDate(event.getDate());
 			eventFinded.setEventName(event.getEventName());
+			eventFinded.setBudget(event.getBudget());
 			return save(eventFinded);
 		}
 		throw new IdNotFoundedInDBException("Not founded the id's event: " + event.getId());
