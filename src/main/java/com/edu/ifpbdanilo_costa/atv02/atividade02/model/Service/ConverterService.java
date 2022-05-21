@@ -67,6 +67,7 @@ public class ConverterService {
 	public GuestDto guestToDto(Guest entity) {
 		GuestDto dto = new GuestDto();
 		dto.setName(entity.getName());
+		dto.setCpf(entity.getCpf());
 		
 		Event ev = new Event();
 		ev.setId(entity.getEvent().getId());
