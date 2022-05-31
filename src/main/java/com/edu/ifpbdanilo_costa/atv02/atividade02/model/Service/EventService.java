@@ -47,6 +47,12 @@ public class EventService {
 		List<Event> list = eventRepository.findAll();
 		return list;
 	}
+	
+	public Event findById(Integer id) throws IdNotFoundedInDBException {
+		Event eventFinded = eventRepository.findById(id)
+				.orElseThrow(() -> new IdNotFoundedInDBException("Not founded the id's event: " + id));
+		return eventFinded;
+	}
 
 	private boolean isOnDB(Integer id) {
 		Optional<Event> opGuest = eventRepository.findById(id);

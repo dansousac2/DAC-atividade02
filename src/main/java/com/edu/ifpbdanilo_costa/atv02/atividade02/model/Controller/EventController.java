@@ -90,5 +90,14 @@ public class EventController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
+	
+	@GetMapping("/{id}")
+	public ResponseEntity findById(@PathVariable("id") Integer eventId) {
+		try {
+			EventDto dto = converterService.eventToDto(eventService.findById(eventId));
+			return ResponseEntity.ok(dto);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }

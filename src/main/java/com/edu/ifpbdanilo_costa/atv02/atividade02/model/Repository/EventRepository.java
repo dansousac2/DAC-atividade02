@@ -10,6 +10,6 @@ import com.edu.ifpbdanilo_costa.atv02.atividade02.model.Event;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Integer> {
 	
-	Optional<Event> findById(String id);
+	//Optional<Event> findById(String id);
 
 }
